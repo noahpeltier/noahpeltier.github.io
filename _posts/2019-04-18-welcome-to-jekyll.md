@@ -38,9 +38,7 @@ Exited
 OutputDataReceived
 ```
 
-This will give us some output showing all the properties and events we need.
 The SourceIdentifier is what ever we want to name it so we can recall it later.
-
 Now, we can put it all together with an action that will trigger when we close the window.
 
 ```powershell
@@ -52,9 +50,11 @@ Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed -Act
 	}
 }
 ```
+I include the `Unregister-Event WindowClosed` to clear it out of memory in case we need to re-creat it, Otherwise, we'll get an error that it exists already.
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+## Use Cases:
+My use case will be using this for Universal dashboard.
+I would start a UDDashboard and at the same time spawn a browser window to navigate to the target URL.
+Once the browser is closed, the server will terminate so it doe snot keep running.
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+There are many other use cases for this so get creative!
