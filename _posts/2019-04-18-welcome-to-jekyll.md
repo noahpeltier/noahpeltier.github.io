@@ -29,6 +29,15 @@ where did 'Exited' come from? Well Exited is an event that is hard coded into th
 We can find all of the Events we can trigger by using `Get-Member` on it
 
 `get-member -InputObject $proc`
+
+Output:
+```
+Disposed
+ErrorDataReceived
+Exited
+OutputDataReceived
+```
+
 This will give us some output showing all the properties and events we need.
 The SourceIdentifier is what ever we want to name it so we can recall it later.
 
