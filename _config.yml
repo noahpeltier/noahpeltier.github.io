@@ -58,7 +58,7 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   :"https://arsdears.files.wordpress.com/2015/02/psheart.png " "Noah Peltier"
+  name   : "Noah Peltier"
   avatar : "https://avatars1.githubusercontent.com/u/37789708?s=460&v=4" #/assets/images/bio-photo.jpg
   bio    : "I'm passionate about development, creatvivity and pushing Powersell to the limits."
   links:
