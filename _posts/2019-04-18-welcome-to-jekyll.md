@@ -24,12 +24,15 @@ Next we're going to create our event, in this case, `$Object` is a process that 
 ```powershell
 Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed
 ```
-
 ## WAIT...
 where did 'Exited' come from? Well Exited is an event that is hard coded into the .net Object.
 We can find all of the Events we can trigger by using `Get-Member` on it
 
-![]({{site.baseurl}}/https://i.imgur.com/yJO7QM5.png)
+`get-member -InputObject $proc`
+This will give us some output showing all the properties and events we need.
+The SourceIdentifier is what ever we want to name it so we can recall it later.
+
+Now, we can put it all together with an action that will trigger when we close the window.
 
 ```powershell
 $proc = Start-Process notepad -PassThru
