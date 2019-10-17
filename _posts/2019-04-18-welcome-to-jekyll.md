@@ -1,22 +1,43 @@
 ---
-title: "Welcome to Jekyll!"
-date: 2019-04-18T15:34:30-04:00
+title: Welcome to Jekyll!
+date: {}
 categories:
   - blog
 tags:
   - Jekyll
   - update
+published: true
 ---
 
-You'll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+Recently, I was tinkering arround with a cool cmdlet called `Register-ObjectEvent`. This cmdlet lets us do some cool event driven actions on .NET objects so in this example today, I'll show you how to monitor an external process and have powershell preform an action when it is closed.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+First, lets spawn our process:
+```powershell
+$proc = Start-Process 'notepad' -PassThru
+```
 
-Jekyll also offers powerful support for code snippets:
+`-PassThru` is very important here so we can get the process object.
+
+
+Next we're going to create our event, in this case, `$Object` is a process that we spawn with `Start-Process`
 
 ```powershell
-Fucntion Say-Hello($message) {
-  Write-Host ("{0} : $message" -f (Get-Date))
+Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed
+```
+
+## WAIT...
+where did 'Exited' come from? Well Exited is an event that is hard coded into the .net Object.
+We can find all of the Events we can trigger by using `Get-Member` on it
+
+![]({{site.baseurl}}/https://i.imgur.com/yJO7QM5.png)
+
+```powershell
+$proc = Start-Process notepad -PassThru
+
+Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed -Action {
+    Write-host ("Process {0} was closed" -f $proc.id)
+    Unregister-Event WindowClosed
+	}
 }
 ```
 
