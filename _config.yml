@@ -58,16 +58,16 @@ plugins:
   - jekyll-include-cache
 
 author:
-  name   : "Noah Peltier"
-  avatar : "https://avatars1.githubusercontent.com/u/37789708?s=460&v=4" #/assets/images/bio-photo.jpg
-  bio    : "I'm passionate about development, creatvivity and pushing Powersell to the limits."
+  name: "Noah Peltier"
+  avatar: "https://avatars1.githubusercontent.com/u/37789708?s=460&v=4" #/assets/images/bio-photo.jpg
+  bio: "I'm passionate about development, creativity and pushing Powersell to the limits."
   links:
-#    - label: "Website"
-#      icon: "fas fa-fw fa-link"
-#      url: "https://"
-#    - label: "Twitter"
-#      icon: "fab fa-fw fa-twitter-square"
-#      url: "https://twitter.com/"
+    #    - label: "Website"
+    #      icon: "fas fa-fw fa-link"
+    #      url: "https://"
+    #    - label: "Twitter"
+    #      icon: "fab fa-fw fa-twitter-square"
+    #      url: "https://twitter.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/noahpeltier"
