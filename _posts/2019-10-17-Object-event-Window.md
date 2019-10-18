@@ -1,16 +1,18 @@
 ---
 title: Register Object Events
-date: {2019-04-18}
+date: {2019-10-17}
 categories:
   - blog
 tags:
-  - Jekyll
-  - update
+  - Object Event
+  - Browser
 published: true
 ---
 Register-ObjectEvent is a neat Cmdlet that will subcribe to an event on a .net object and allow you to assign an action when it's triggered.
 
 In this example, we can spawn an instance of Internet Explorer and then subscribe to the 'Exited' event on the object, the Action will trigger when the window is closed wich can be very usefull in many circumstances such as a script that starts a webserver that you only want running while the browser is running.
+
+Like this:
 
 ```powershell
 Start-UDDashbord
@@ -22,6 +24,7 @@ Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed -Act
     Unregister-Event WindowClosed
 }
 ```
+
 
 ![Alt Text](https://i.imgur.com/flQcXWu.gif)
 
