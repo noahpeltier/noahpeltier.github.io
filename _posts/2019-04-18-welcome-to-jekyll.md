@@ -1,5 +1,5 @@
 ---
-title: Welcome to Jekyll!
+title: Register Object Events
 date: {2019-04-18}
 categories:
   - blog
@@ -8,53 +8,24 @@ tags:
   - update
 published: true
 ---
+Register-ObjectEvent is a neat Cmdlet that will subcribe to an event on a .net object and allow you to assign an action when it's triggered.
 
-Recently, I was tinkering arround with a cool cmdlet called `Register-ObjectEvent`. This cmdlet lets us do some cool event driven actions on .NET objects so in this example today, I'll show you how to monitor an external process and have powershell preform an action when it is closed.
-
-First, lets spawn our process:
-```powershell
-$proc = Start-Process 'notepad' -PassThru
-```
-
-`-PassThru` is very important here so we can get the process object.
-
-
-Next we're going to create our event, in this case, `$Object` is a process that we spawn with `Start-Process`
+In this example, we can spawn an instance of Internet Explorer and then subscribe to the 'Exited' event on the object, the Action will trigger when the window is closed wich can be very usefull in many circumstances such as a script that starts a webserver that you only want running while the browser is running.
 
 ```powershell
-Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed
-```
-## WAIT...
-where did 'Exited' come from? Well Exited is an event that is hard coded into the .net Object.
-We can find all of the Events we can trigger by using `Get-Member` on it
-
-`get-member -InputObject $proc`
-
-Output:
-```
-Disposed
-ErrorDataReceived
-Exited
-OutputDataReceived
-```
-
-The SourceIdentifier is what ever we want to name it so we can recall it later.
-Now, we can put it all together with an action that will trigger when we close the window.
-
-```powershell
-$proc = Start-Process notepad -PassThru
+Start-UDDashbord
+$proc = Start-Process 'C:\Program Files\internet explorer\iexplore.exe' -ArgumentList 'http://localhost:80' -PassThru
 
 Register-ObjectEvent $proc -EventName Exited -SourceIdentifier WindowClosed -Action {
     Write-host ("Process {0} was closed" -f $proc.id)
+    Get-UDDashboard | Stop-UDDashboard
     Unregister-Event WindowClosed
-	}
 }
 ```
-I include the `Unregister-Event WindowClosed` to clear it out of memory in case we need to re-creat it, Otherwise, we'll get an error that it exists already.
 
-## Use Cases:
-My use case will be using this for Universal dashboard.
-I would start a UDDashboard and at the same time spawn a browser window to navigate to the target URL.
-Once the browser is closed, the server will terminate so it doe snot keep running.
+![Alt Text](https://i.imgur.com/flQcXWu.gif)
 
-There are many other use cases for this so get creative!
+Pretty cool huh?
+
+You can find events on .net objects by using `Get-Member -InputObject $object`, you'll get a list of properties and some events if they exist. I'll go over some other uses for Object Events in another post.
+
